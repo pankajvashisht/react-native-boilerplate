@@ -1,4 +1,4 @@
-# <img src="https://avatars.githubusercontent.com/u/12858694" width="30" height="30" /> React Native Boilerplate
+# <img src="https://avatars.githubusercontent.com/u/69631" width="30" height="30" /> React Native Boilerplate
 
 ## Getting Started
 
@@ -28,7 +28,7 @@ More info can be found at [react-native-community/cli](https://github.com/react-
 ### Initializing a new project with React-Native v0.67.2
 
 ```bash
-$ npx react-native init MyApp --template https://github.com/pankajvashisht/react-native-innovator.git
+$ npx react-native init MyApp --template https://github.com/pankajvashisht/react-native-boilerplate.git
 ```
 
 ## Required data
