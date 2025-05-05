@@ -28,7 +28,7 @@ More info can be found at [react-native-community/cli](https://github.com/react-
 ### Initializing a new project with React-Native v0.67.2
 
 ```bash
-$ npx react-native init MyApp --template https://github.com/founderandlightning/react-native-innovator.git
+$ npx react-native init MyApp --template https://github.com/pankajvashisht/react-native-innovator.git
 ```
 
 ## Required data
