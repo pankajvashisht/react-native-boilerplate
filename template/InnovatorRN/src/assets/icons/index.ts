@@ -1,0 +1,15 @@
+export {default as Delete} from './Delete.svg';
+export {default as Logout} from './Logout.svg';
+export {default as ArrowRight} from './arrow-right.svg';
+export {default as Theme} from './Theme.svg';
+export {default as Cross} from './Cross.svg';
+export {default as Menu} from './Menu.svg';
+export {default as Camera} from './camera.svg';
+export {default as Radiation} from './radiation.svg';
+export {default as VoiceOff} from './voice-off.svg';
+export {default as Logo} from './logo.svg';
+export {default as Setting} from './setting.svg';
+export {default as MenuIcon} from './menu-icon.svg';
+export {default as Bell} from './bell.svg';
+export {default as Profile} from './profile.svg';
+export {default as ProfileUpload} from './profile_upload_default.svg';

@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "Checking commit-message format..."
+
+echo "$(dirname -- "$0")"
+
+cd "$(dirname -- "$0")"
+
+npx --no-install commitlint --edit

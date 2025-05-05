@@ -1,0 +1,308 @@
+---
+format_version: '8'
+default_step_lib_source: 'https://github.com/bitrise-io/bitrise-steplib.git'
+project_type: react-native
+app:
+  envs:
+  - PROJECT_LOCATION: InnovatorRN/android
+  - MODULE: app
+  - BITRISE_PROJECT_PATH: InnovatorRN/ios/InnovatorRN.xcworkspace
+  - BITRISE_EXPORT_METHOD: ad-hoc
+  - opts:
+      is_expand: false
+    PRODUCTION_RN_BUNDLE_ID: com.InnovatorRN.production
+  - opts:
+      is_expand: false
+    STAGING_RN_BUNDLE_ID: com.InnovatorRN.staging
+  - opts:
+      is_expand: false
+    STAGING_RN_IS_PRODUCTION: 'false'
+  - opts:
+      is_expand: false
+    PRODUCTION_RN_IS_PRODUCTION: 'true'
+workflows:
+  iosStaging:
+    description: Use this workflow to generate the iOS Staging build.
+    steps:
+    - activate-ssh-key@4:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - git-clone@6.1: {}
+    - cache-pull@2: {}
+    - script@1:
+        title: Set Environment Variables
+        inputs:
+        - content: >
+            #!/usr/bin/env bash
+
+            # Creates an .env from ENV variables for use with
+            react-native-config
+
+            ENV_WHITELIST=${ENV_WHITELIST:-"^(STAGING_RN_|RN_)"}
+
+            printf "Creating an .env file with the following whitelist:\n"
+
+            printf "%s\n" $ENV_WHITELIST
+
+            set | egrep -e $ENV_WHITELIST | sed -E 's/^STAGING_RN_|^RN_//g' >
+            .env
+
+
+            cp .env ./InnovatorRN/.env.staging
+
+            cp .env /tmp/envfile
+
+
+            printf "\n.env created with contents:\n\n"
+
+            cat ./InnovatorRN/.env
+
+
+            printf "\n.env.staging created with contents:\n\n"
+
+            cat ./InnovatorRN/.env.staging
+    - yarn@0:
+        inputs:
+        - workdir: InnovatorRN
+        - command: install
+        title: Install node_modules
+    - yarn@0:
+        inputs:
+        - command: checkRevieweeCommitStatus
+        - workdir: InnovatorRN
+        title: Check Rejected Commits
+    - cocoapods-install@2.2: {}
+    - certificate-and-profile-installer@1: {}
+    - xcode-archive@4:
+        inputs:
+        - configuration: Staging.Release
+        - export_method: app-store
+        - team_id: $APPLE_TEAM_ID
+        - compile_bitcode: 'no'
+        - upload_bitcode: 'no'
+        - scheme: InnovatorRN_Staging
+    - deploy-to-itunesconnect-deliver@2:
+        inputs:
+        - password: $APPLE_ID_PASSWORD
+        - app_password: $APPLE_APP_SPECIFIC_PASSWORD
+        - team_id: $APPLE_TEAM_ID
+        - team_name: $APPLE_ID_TEAM_NAME
+        - bundle_id: $STAGING_RN_BUNDLE_ID
+        - app_id: $APP_STORE_CONNECT_APP_ID
+        - itunescon_user: $APPLE_EMAIL_ID
+    - deploy-to-bitrise-io@2: {}
+    - cache-push@2:
+        is_always_run: true
+    meta:
+      bitrise.io:
+        stack: osx-xcode-12.3.x
+  iosProduction:
+    description: Use this workflow to generate the iOS Production build.
+    steps:
+    - activate-ssh-key@4:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - git-clone@6.1: {}
+    - cache-pull@2: {}
+    - script@1:
+        title: Set Environment Variables
+        inputs:
+        - content: >
+            #!/usr/bin/env bash
+
+            # Creates an .env from ENV variables for use with
+            react-native-config
+
+            ENV_WHITELIST=${ENV_WHITELIST:-"^(STAGING_RN_|RN_)"}
+
+            printf "Creating an .env file with the following whitelist:\n"
+
+            printf "%s\n" $ENV_WHITELIST
+
+            set | egrep -e $ENV_WHITELIST | sed -E 's/^STAGING_RN_|^RN_//g' >
+            .env
+
+
+            cp .env ./InnovatorRN/.env.staging
+
+            cp .env /tmp/envfile
+
+
+            printf "\n.env created with contents:\n\n"
+
+            cat ./InnovatorRN/.env
+
+
+            printf "\n.env.staging created with contents:\n\n"
+
+            cat ./InnovatorRN/.env.staging
+    - yarn@0:
+        inputs:
+        - workdir: InnovatorRN
+        - command: install
+        title: Install node_modules
+    - yarn@0:
+        inputs:
+        - command: checkRevieweeCommitStatus
+        - workdir: InnovatorRN
+        title: Check Rejected Commits
+    - cocoapods-install@2.2: {}
+    - certificate-and-profile-installer@1: {}
+    - xcode-archive@3:
+        inputs:
+        - configuration: Production.Release
+        - export_method: app-store
+        - team_id: $APPLE_TEAM_ID
+        - compile_bitcode: 'no'
+        - upload_bitcode: 'no'
+        - scheme: InnovatorRN_Production
+    - deploy-to-itunesconnect-deliver@2:
+        inputs:
+        - password: $APPLE_ID_PASSWORD
+        - app_password: $APPLE_APP_SPECIFIC_PASSWORD
+        - team_id: $APPLE_TEAM_ID
+        - team_name: $APPLE_ID_TEAM_NAME
+        - app_id: $APP_STORE_CONNECT_APP_ID
+        - bundle_id: $PRODUCTION_RN_BUNDLE_ID
+        - itunescon_user: $APPLE_EMAIL_ID
+    - deploy-to-bitrise-io@2: {}
+    - cache-push@2:
+        is_always_run: true
+    meta:
+      bitrise.io:
+        stack: osx-xcode-12.3.x
+  androidStaging:
+    description: Use this workflow to generate the Android Staging build.
+    steps:
+    - activate-ssh-key@4:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - git-clone@6.1: {}
+    - cache-pull@2: {}
+    - script@1:
+        title: Set Environment Variables
+        inputs:
+        - content: >
+            #!/usr/bin/env bash
+
+            # Creates an .env from ENV variables for use with
+            react-native-config
+
+            ENV_WHITELIST=${ENV_WHITELIST:-"^(STAGING_RN_|RN_)"}
+
+            printf "Creating an .env file with the following whitelist:\n"
+
+            printf "%s\n" $ENV_WHITELIST
+
+            set | egrep -e $ENV_WHITELIST | sed -E 's/^STAGING_RN_|^RN_//g' >
+            .env
+
+
+            cp .env ./InnovatorRN/.env.staging
+
+            cp .env /tmp/envfile
+
+
+            printf "\n.env created with contents:\n\n"
+
+            cat ./InnovatorRN/.env
+
+
+            printf "\n.env.staging created with contents:\n\n"
+
+            cat ./InnovatorRN/.env.staging
+    - yarn@0:
+        inputs:
+        - workdir: InnovatorRN
+        - command: install
+        title: Install node_modules
+    - yarn@0:
+        inputs:
+        - command: checkRevieweeCommitStatus
+        - workdir: InnovatorRN
+        title: Check Rejected Commits
+    - install-missing-android-tools@3:
+        inputs:
+        - ndk_revision: 21d
+        - gradlew_path: $PROJECT_LOCATION/gradlew
+    - android-build@1:
+        inputs:
+        - variant: stagingRelease
+        - project_location: $PROJECT_LOCATION
+    - sign-apk@1: {}
+    - deploy-to-bitrise-io@2: {}
+    - cache-push@2: {}
+    meta:
+      bitrise.io:
+        stack: linux-docker-android-20.04
+  androidProduction:
+    description: Use this workflow to generate the Android Production workflow.
+    steps:
+    - activate-ssh-key@4:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - git-clone@6.1: {}
+    - cache-pull@2: {}
+    - script@1:
+        title: Set Environment Variables
+        inputs:
+        - content: >
+            #!/usr/bin/env bash
+
+            # Creates an .env from ENV variables for use with
+            react-native-config
+
+            ENV_WHITELIST=${ENV_WHITELIST:-"^(STAGING_RN_|RN_)"}
+
+            printf "Creating an .env file with the following whitelist:\n"
+
+            printf "%s\n" $ENV_WHITELIST
+
+            set | egrep -e $ENV_WHITELIST | sed -E 's/^STAGING_RN_|^RN_//g' >
+            .env
+
+
+            cp .env ./InnovatorRN/.env.staging
+
+            cp .env /tmp/envfile
+
+
+            printf "\n.env created with contents:\n\n"
+
+            cat ./InnovatorRN/.env
+
+
+            printf "\n.env.staging created with contents:\n\n"
+
+            cat ./InnovatorRN/.env.staging
+    - yarn@0:
+        inputs:
+        - workdir: InnovatorRN
+        - command: install
+        title: Install node_modules
+    - yarn@0:
+        inputs:
+        - command: checkRevieweeCommitStatus
+        - workdir: InnovatorRN
+        title: Check Rejected Commits
+    - install-missing-android-tools@3:
+        inputs:
+        - ndk_revision: 21d
+        - gradlew_path: $PROJECT_LOCATION/gradlew
+    - android-build@1.0:
+        inputs:
+        - variant: productionRelease
+        - project_location: $PROJECT_LOCATION
+    - sign-apk@1: {}
+    - deploy-to-bitrise-io@2: {}
+    - cache-push@2: {}
+    meta:
+      bitrise.io:
+        stack: linux-docker-android-20.04
+  primary:
+    steps:
+    - build-router-start@0:
+        inputs:
+        - workflows: |-
+            androidStaging
+            iosStaging
+        - access_token: $BITRISE_ACCESS_TOKEN
+trigger_map:
+- tag: '*'
+  workflow: primary

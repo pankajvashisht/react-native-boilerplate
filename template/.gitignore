@@ -1,0 +1,4 @@
+# Test automation files
+test-automation/node_modules
+test-automation/.env
+template/InnovatorRN/coverage

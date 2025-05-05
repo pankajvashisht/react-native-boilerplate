@@ -1,0 +1,32 @@
+{
+  "name": "@RNInnovator/template",
+  "version": "1.0.0",
+  "description": "It is a React Native template with pre-configured set of packages and configurations based on Founder and Lightning tech stack to start a new app.",
+  "scripts": {
+    "test": "exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:founderandlightning/react-native-innovator.git"
+  },
+  "keywords": [
+    "template",
+    "boilerplate",
+    "starter",
+    "react-native",
+    "react",
+    "native"
+  ],
+  "bugs": {
+    "url": "git@github.com:founderandlightning/react-native-innovator.git/issues"
+  },
+  "dependencies": {
+    "ora": "^5.4.1",
+    "inquirer": "^8.2.2"
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: release v${version}"
+    }
+  }
+}

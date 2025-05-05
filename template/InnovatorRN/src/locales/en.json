@@ -1,0 +1,94 @@
+{
+  "common": {
+    "noConnectivity": "No internet connection!",
+    "loading": "Loading...",
+    "logout_warning": "Are you sure you want to logout?",
+    "delete_Account_message": "Are you sure you want to delete account?",
+    "no": "No",
+    "yes": "Yes",
+    "something_went_wrong": "Something went wrong!",
+    "server_error": "Server error!",
+    "sessionExpired": "session expired, please login again",
+    "cancel": "Cancel"
+  },
+  "signIn": {
+    "heading": "Sign in to your account",
+    "signIn": "Sign In",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot Password?",
+    "notMember": "Not a member?",
+    "createAccount": "Create an account"
+  },
+  "signUp": {
+    "heading": "Create an account",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Re-enter password",
+    "signUp": "Sign Up",
+    "alreadyMember": "Already a member?"
+  },
+  "resetPassword": {
+    "heading": "Reset password",
+    "subHeading": "Please enter your email and we’ll send you instructions on how to reset your password.",
+    "email": "Email",
+    "sendEmail": "Send email",
+    "didNotReceive": "Didn't receive an email?",
+    "contactSupport": "Contact support",
+    "success": "Email sent successfully",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Please enter valid Email"
+  },
+  "errorScreen": {
+    "somethingWrong": "Oops something went wrong.",
+    "appInProblem": "The app ran into a problem and could not continue. We apologise for any inconvenience this has caused! Press the button below to restart the app and sign back in. Please contact us if this issue persists.",
+    "back": "Back to Sign in"
+  },
+  "setting": {
+    "logout": "Logout",
+    "deleteAccount": "Delete Account",
+    "termUse": "Terms of Use",
+    "privacy": "Privacy Policy",
+    "goToSetting": "Go to app setting",
+    "copyRight": "Copyright @ AppName. All Rights Reserved",
+    "changeTheme": "Change Theme",
+    "darkMode": "Dark Mode",
+    "accountSetting": "Account Setting",
+    "changeLanguage": "Change Language"
+
+  },
+  "drawer": {
+    "designTeam": "Design Team",
+    "member": "Member 6 members",
+    "home": "Home",
+    "setting": "Setting",
+    "termAndPrivacy": "Terms & Privacy"
+  },
+  "dashboard": {
+    "desc": "You are signed in successfully!"
+  },
+  "accountSetting": {
+    "accountSettingTitle": "Account Setting",
+    "account": "Account",
+    "notifications": "Notifications",
+    "profileImage": "Profile Image",
+    "profileImageDesc": "Your profile image",
+    "userInformation": "User information",
+    "userInformationDesc": "Your personal information tied to your account",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "newEmail": "New email", 
+    "reEnterEmail": "Re-enter email",
+    "emailDeclaimer": "*Changing the email address will result in logging out and the need to confirm the new e-mail address by clicking on the activation link sent to your inbox.",
+    "save": "Save",
+    "update": "Update",
+    "language": "Language",
+    "languageDesc": "Language used in the system.",
+    "deleteAccount": "Delete account",
+    "deleteAccountDesc": "In order to regain access at a later time, a Team Admin must invite you.",
+    "delete": "Delete"
+  }
+}
